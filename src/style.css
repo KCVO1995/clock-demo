@@ -1,0 +1,259 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+.clock {
+    margin: 0 auto;
+    margin-top: 150px;
+    width: 500px;
+    height: 500px;
+    border: 30px solid rgb(32, 57, 64);
+    border-radius: 50%;
+    position: relative;
+}
+/* 刻度表 */
+.container {
+    position: absolute;
+    transform-origin: bottom center;
+    width: 15px;
+    height: 220px;
+    margin: 0 auto;
+    top: 0;
+    left: 212.5px;
+}
+.scale{   
+    height: 40px;
+    background-color: rgb(32, 57, 64);
+    border-radius: 0 0 15px 15px; 
+    z-index: 1;
+}
+
+.x {background-color: blue;}
+.b {transform: rotate(30deg);}
+.c {transform: rotate(60deg);}
+.d {transform: rotate(90deg);}
+.e {transform: rotate(120deg);}
+.f {transform: rotate(150deg);}
+.g {transform: rotate(180deg);}
+.h {transform: rotate(210deg);}
+.i {transform: rotate(240deg);}
+.j {transform: rotate(270deg);}
+.k {transform: rotate(300deg);}
+.l {transform: rotate(330deg);}
+
+
+/* 中心和时针，分针，秒针 */
+.centre {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border: 15px solid rgb(32, 57, 64);
+    border-radius: 50%;
+    background-color: yellow;
+    z-index: 4;
+}
+#hour {
+    position: absolute;
+    top: 0;
+    left: 210px;
+    width: 20px;
+    height: 220px; 
+    transform-origin: bottom center;
+    transform: rotate(50deg);
+}
+#min {
+    position: absolute;
+    top: 0;
+    left: 210px;
+    width: 20px;
+    height: 220px; 
+    transform-origin: bottom center;
+    transform: rotate(100deg);
+}
+#sec {
+    position: absolute;
+    top: 0;
+    left: 212.5px;
+    width: 15px;
+    height: 220px; 
+    transform-origin: bottom center;
+    transform: rotate(180deg);
+}
+#sec2 {
+    position: absolute;
+    top: 0;
+    left: 210px;
+    width: 20px;
+    height: 220px; 
+    transform-origin: bottom center;
+    transform: rotate(0deg);
+}
+.hour-content {
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    border-radius: 15px 15px 0 0;
+    background-color: rgb(32, 57, 64);
+    height: 105px;
+    z-index: 1;
+}
+.min-content{
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    border-radius: 15px 15px 0 0;
+    background-color: rgb(32, 57, 64);
+    height: 150px;
+    z-index: 2;
+}
+.sec-content{
+    position: absolute;
+    bottom: 0;
+    width: 15px;
+    border-radius: 15px 15px 0 0;
+    background-color: red;
+    height: 170px;
+    z-index: 3;
+}
+.sec2-content{
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    border-radius: 8px 8px 0 0;
+    background-color: red;
+    height: 60px;
+    z-index: 3;
+}
+/* 显示时间按 */
+#html_time{
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 220px;
+    height: 60px;
+    display: block;
+    border: 5px solid rgb(32, 57, 64);
+    border-radius: 20px;
+    font-family: Bahnschrift Light;
+    font-size: 50px;
+    text-align: center;
+    line-height: 60px;
+}
+/* 国家选项 */
+.container-radio{
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 440px;
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+}
+span {
+    line-height: 44px;
+    font-size: 10px;
+}
+input {
+    -webkit-appearance: none; /* remove default */
+    display: block;
+    margin: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    float: left;
+    box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
+    background-color: hsla(0,0%,0%,.2);
+    background-image: -webkit-radial-gradient( hsla(200,100%,90%,1) 0%, hsla(200,100%,70%,1) 15%, hsla(200,100%,60%,.3) 28%, hsla(200,100%,30%,0) 70% );
+    background-repeat: no-repeat;
+    transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
+    -webkit-transform .25s cubic-bezier(.8, 0, 1, 1);
+}
+input:checked {
+    transition: background-position .2s .15s cubic-bezier(0, 0, .2, 1),transform .25s cubic-bezier(0, 0, .2, 1);
+}
+input:active {
+    transform: scale(1.5);
+    transition: -webkit-transform .1s cubic-bezier(0, 0, .2, 1);
+}
+input,input:active {
+    background-position: -24px 0;
+}
+input:checked {
+    background-position: 0 0;
+}
+input:checked ~ input,
+input:checked ~ input:active {
+    background-position: 0 -24px;
+}
+
+
+
+
+@media(max-width: 500px){
+    .clock{
+        margin-top: 75px;
+        width: 250px;
+        height: 250px;
+        border: 15px solid rgb(32, 57, 64);
+    }
+    .container {
+        width: 7.5px;
+        height: 110px;
+        left: 106.25px;
+    }
+    .scale{height: 20px;}    
+    .centre{
+        width: 30px;
+        height: 30px;
+        border: 7.5px solid rgb(32, 57, 64);
+    }
+    #hour{
+        left: 105px;
+        width: 10px;
+        height: 110px;
+    }
+    #min{
+        left: 105px;
+        width: 10px;
+        height: 110px;
+    }
+    #sec{
+        left: 106.25px;
+        width: 7.5px;
+        height: 110px;
+    }
+    #sec2{
+        left: 105px;
+        width: 10px;
+        height: 110px;
+    }
+    .hour-content{width: 10px; height: 57.5px;}
+    .min-content{width: 10px; height: 75px;}
+    .sec-content{width: 7.5px; height: 85px;}
+    .sec2-content{width: 10px; height: 30px;}
+
+    #html_time{
+        margin-top: 50px;
+        width: 110px;
+        height: 30px;
+        border: 2.5px solid rgb(32, 57, 64);
+        border-radius: 10px;
+        font-size: 25px;
+        line-height: 30px;
+    }
+    .container-radio{
+        margin-top: 50px;
+        width: 220px;
+        height: 44px;
+    }
+    span {
+        line-height: 44px;
+        font-size: 10px;
+    }
+}
