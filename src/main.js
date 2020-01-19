@@ -1,41 +1,52 @@
 let time = () => {
-    let html_time = document.getElementById('html_time')
-    setTimeout(() =>{
-        let checked = () => {
-            let radio = document.getElementsByName("country");
-            for (let i = 0; i < radio.length; i++) {
-                if (radio[i].checked == true) {
-                    if (radio[i].id === 'China'){x = 8}
-                    else if (radio[i].id === 'American'){x = -5}
-                    else {x = 0}
-                }
-                
-            }
-            return x
+  let html_time = document.getElementById("html_time");
+
+  setTimeout(() => {
+    let myDate = new Date();
+    let second = myDate.getUTCSeconds();
+    let hours = myDate.getUTCHours();
+    let minute = myDate.getUTCMinutes();
+
+    let checked = () => {
+      let radio = document.getElementsByName("country");
+      let jetLag;
+
+      for (let i = 0; i < radio.length; i++) {
+        if (radio[i].checked == true) {
+          if (radio[i].id === "China") {
+            hours < 16 ? (jetLag = 8) : (jetLag = -16);
+          } else if (radio[i].id === "American") {
+            hours > 4 ? (jetLag = -5) : (jetLag = 19);
+          } else {
+            jetLag = 0;
+          }
         }
+      }
+      return jetLag;
+    };
 
+    hours += checked();
 
-        let myDate = new Date()
-        let second = myDate.getUTCSeconds()
-        let hours = myDate.getUTCHours() + checked()
-        let minute = myDate.getUTCMinutes()
-        
-
-        //秒
-        sec.style.transform = 'rotate(' + second * 6 +'deg)'
-        sec2.style.transform = 'rotate(' + (second * 6 - 180) + 'deg)'
-        //分
-        min.style.transform = 'rotate(' + minute * 6 + 'deg)'
-        //时
-        hour.style.transform = 'rotate(' + hours * 15 + 'deg)'
-        time()
-        console.log(second,minute,hours)
-        //时间内容
-        html_time.innerHTML = hours + ":" + minute + ":" + second
-    },1000)
-}
-time()
-
+    //秒
+    sec.style.transform = "rotate(" + second * 6 + "deg)";
+    sec2.style.transform = "rotate(" + (second * 6 - 180) + "deg)";
+    //分
+    min.style.transform = "rotate(" + minute * 6 + "deg)";
+    //时
+    let x;
+    if (hours > 12) {
+      x = (hours - 12) * 30 + minute * 0.5;
+    } else {
+      x = hours * 30 + minute * 0.5;
+    }
+    x = x.toString();
+    x = x + "deg";
+    hour.style.transform = `rotate(${x})`;
+    //时间内容
+    html_time.innerHTML = hours + ":" + minute + ":" + second;
+    time();
+  }, 1);
+};
+time();
 
 //时间内容
-

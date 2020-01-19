@@ -117,60 +117,79 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"main.js":[function(require,module,exports) {
-var time = function time() {
-  var html_time = document.getElementById("html_time");
-  setTimeout(function () {
-    var myDate = new Date();
-    var second = myDate.getUTCSeconds();
-    var hours = myDate.getUTCHours();
-    var minute = myDate.getUTCMinutes();
+})({"../../../AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
 
-    var checked = function checked() {
-      var radio = document.getElementsByName("country");
-      var jetLag;
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
 
-      for (var i = 0; i < radio.length; i++) {
-        if (radio[i].checked == true) {
-          if (radio[i].id === "China") {
-            hours < 16 ? jetLag = 8 : jetLag = -16;
-          } else if (radio[i].id === "American") {
-            hours > 4 ? jetLag = -5 : jetLag = 19;
-          } else {
-            jetLag = 0;
-          }
-        }
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
       }
-
-      return jetLag;
-    };
-
-    hours += checked(); //秒
-
-    sec.style.transform = "rotate(" + second * 6 + "deg)";
-    sec2.style.transform = "rotate(" + (second * 6 - 180) + "deg)"; //分
-
-    min.style.transform = "rotate(" + minute * 6 + "deg)"; //时
-
-    var x;
-
-    if (hours > 12) {
-      x = (hours - 12) * 30 + minute * 0.5;
-    } else {
-      x = hours * 30 + minute * 0.5;
     }
 
-    x = x.toString();
-    x = x + "deg";
-    hour.style.transform = "rotate(".concat(x, ")"); //时间内容
+    cssTimeout = null;
+  }, 50);
+}
 
-    html_time.innerHTML = hours + ":" + minute + ":" + second;
-    time();
-  }, 1);
-};
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/bundle-url.js"}],"style.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
 
-time(); //时间内容
-},{}],"../../../AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/css-loader.js"}],"../../../AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -374,5 +393,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/hmr-runtime.js","main.js"], null)
-//# sourceMappingURL=/main.1f19ae8e.js.map
+},{}]},{},["../../../AppData/Local/Yarn/Data/global/node_modules/parcel/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/style.e308ff8e.js.map
